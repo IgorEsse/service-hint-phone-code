@@ -2,44 +2,30 @@ package app.repository;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.stereotype.Component;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 
-import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import org.json.JSONObject;
 
 import app.domain.Code;
+import app.json.JsonHelper;
 
 @Component
 public class CodeRepositoryImpl implements CodeRepository{
 
+	@Autowired
+	JsonHelper helper;
+	
+	@Override
 	public List<Code> getByCountry(String country) {
-		HttpURLConnection connNames;
-    	HttpURLConnection connPhone;
-    	String strNames = null;
-    	String strPhone = null;
+
+    	String urlNames = "http://country.io/names.json";
+    	String urlPhone = "http://country.io/phone.json";
     	
-    	try {
-			URL namesURL= new URL("http://country.io/names.json");
-			URL phoneURL= new URL("http://country.io/phone.json");
-			connNames = (HttpURLConnection) namesURL.openConnection();
-			connNames.setRequestMethod("GET");
-			connNames.disconnect();
-			strNames = IOUtils.toString(connNames.getInputStream(), StandardCharsets.UTF_8);
-			connPhone = (HttpURLConnection) phoneURL.openConnection();
-			connPhone.setRequestMethod("GET");
-			strPhone = IOUtils.toString(connPhone.getInputStream(), StandardCharsets.UTF_8);
-			connPhone.disconnect();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-    	
-		JSONObject namesJSON = new JSONObject(strNames);
-        JSONObject phoneJSON = new JSONObject(strPhone);
+		JSONObject namesJSON = new JSONObject(helper.getJsonByUrl(urlNames));
+        JSONObject phoneJSON = new JSONObject(helper.getJsonByUrl(urlPhone));
         Iterator<String> iterator = namesJSON.keys();
 		
         List<Code> hintList = new ArrayList<Code>();
