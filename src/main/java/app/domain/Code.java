@@ -1,20 +1,45 @@
 package app.domain;
 
+//
+
 public class Code {
 
-    private final long id;
-    private final String content;
+    private String name;
+    private String country;
+    private String code;
 
-    public Code(long id, String content) {
-        this.id = id;
-        this.content = content;
+    public Code() {
+    }
+    
+    public String getName() {
+        return name;
     }
 
-    public long getId() {
-        return id;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getContent() {
-        return content;
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    @Override
+    public String toString() {
+        return "{" + "'name':'" + name + "',"+'\n' +
+                "'country':'" + country + "',"+'\n' +
+                "'code':'" + code + "'"+'\n' +
+                '}';
     }
 }
