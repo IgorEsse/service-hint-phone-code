@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Iterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 import org.json.JSONObject;
@@ -18,11 +19,11 @@ public class CodeRepositoryImpl implements CodeRepository{
 	@Autowired
 	JsonHelper helper;
 	
+	private String urlNames = "http://country.io/names.json";
+	private String urlPhone = "http://country.io/phone.json";
+	
 	@Override
 	public List<Code> getByCountry(String country) {
-
-    	String urlNames = "http://country.io/names.json";
-    	String urlPhone = "http://country.io/phone.json";
     	
 		JSONObject namesJSON = new JSONObject(helper.getJsonByUrl(urlNames));
         JSONObject phoneJSON = new JSONObject(helper.getJsonByUrl(urlPhone));
