@@ -43,4 +43,10 @@ public class CodeRepositoryImpl implements CodeRepository{
         return hintList;
 	}
 
+	@Override
+	public void refreshCashe() {
+		helper.getJsonByUrlRefresh(urlNames);
+        helper.getJsonByUrlRefresh(urlPhone);
+	}
+
 }
