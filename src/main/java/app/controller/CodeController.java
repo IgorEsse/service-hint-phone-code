@@ -30,9 +30,11 @@ public class CodeController {
 
 	@GetMapping
     public ResponseEntity hintPhoneCode(@RequestParam(value="country") String country)  throws Exception{
-        
+		
+		log.info("Получен запрос по адресу: /rest/code?country={}",country);
     	List<Code> hintList = codeService.getByCountry(country);
 
+    	log.info("Получены записи: {}",hintList);
         return ResponseEntity.ok(hintList);
     }
     
